@@ -1,0 +1,69 @@
+@charset "utf-8";
+/* CSS Document */
+
+/** 背景及字体 **/    
+html,body.login{   
+    background:#545d72;   
+    font: 14px 'Microsoft YaHei', Arial, Lucida Grande, Tahoma, sans-serif;   
+}   
+/** 去掉链接下划线 **/    
+html a{   
+    text-decoration: none;   
+}   
+/** 登录DIV **/    
+#login {   
+    background:#f0f0f0;   
+    width:400px;   
+    margin: 80px auto 0;   
+    padding:0px;
+    border-radius:10px;   
+    box-shadow:0 4px 10px -1px ;   
+}   
+input{border-radius:6px; }
+.login p label{font-size:20px; font-family:"微软雅黑", Arial, Helvetica, sans-serif;}
+.login .forgetmenot{ margin-top:10px;}
+.login li{ float:left; margin-left:26px; width:32px;list-style-type:none}
+.login #backtoblog{ text-align:center; padding-bottom:30px;}
+.login #nav{ margin:0px;}
+/** 替换logo **/    
+.login h1 { width:400px;height:100px; background:#4895e9;border-top-left-radius:10px;border-top-right-radius:10px}
+.login h1 a{
+    background:url(../img/login_logo.png) no-repeat center;    
+    width:400px;
+	height:100px; 
+	background-size:inherit;
+    
+}   
+/** 提示 **/    
+.updated, .login .message {   
+    background:#fff;   
+    border: none;   
+    text-align: center;   
+}   
+/** 表单 **/    
+.login form {
+	margin-top:0px;
+    box-shadow:none;   
+    border: none;
+	padding:26px;
+}   
+#loginform, #registerform, #lostpasswordform{   
+    background:transparent;   
+    border:none;   
+} 
+/** 按钮 **/    
+.button-primary,.submit .button-primary,#login form .submit input {   
+    width:150px;   
+    height:40px;   
+    font-weight: bold;   
+    border:none;
+box-shadow:none;
+-webkit-box-shadow:none;
+	background: #00cb82;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	color: #fff;
+	font-size:16px;
+}  
+.button-primary,.submit:hover .button-primary,#login form .submit input:hover { background: #4895e9;} 
