@@ -23,6 +23,7 @@
 	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<?php bloginfo('atom_url'); ?>" />
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/register.css" type="text/css" media="all" /> 
+<script src="<?php bloginfo('template_url'); ?>/js/lib/jquery-3.1.0.min.js"></script> <!-- 如果你的主题没有引入了jquery，请自己引入 -->   
     <body>
         <div class="header-bg">
             <div class="header-wrap">
@@ -37,13 +38,13 @@
                 
                 <div class="header-login-wrap f-ib">
                     <?php if(!is_user_logged_in()){ ?>
-                        <a href="http://localhost/xampp/htdocs/wordpress/register" class="register-btn">注册</a>/<a href="wp-login.php" class="login-btn">登录</a>
+                        <a href="<?php bloginfo('url'); ?>/register" class="register-btn">注册</a>/<a href="wp-login.php" class="login-btn">登录</a>
                     <?php }else{ ?>
                         <?php global $current_user;?>
-                            <a href="<?php bloginfo('url'); ?>/wp-admin/profile.php"><?php echo $current_user->display_name;?></a>
-                            <a href="<?php bloginfo('url'); ?>/wp-admin/"><?php _e('后台','tinection'); ?></a>
-                            <a href="<?php bloginfo('url'); ?>/wp-admin/post-new.php"><?php _e('发布','tinection'); ?></a>
-                            <a href="<?php echo wp_logout_url( get_bloginfo('url') ); ?>" title="logout"><?php _e('退出','tinection'); ?></a>
+                            <a class="login-bar-link" href="<?php bloginfo('url'); ?>/wp-admin/profile.php"><?php echo $current_user->display_name;?></a>
+                            <a class="login-bar-link" href="<?php bloginfo('url'); ?>/wp-admin/"><?php _e('后台','tinection'); ?></a>
+                            <a class="login-bar-link" href="<?php bloginfo('url'); ?>/wp-admin/post-new.php"><?php _e('发布','tinection'); ?></a>
+                            <a class="login-bar-link" href="<?php echo wp_logout_url( get_bloginfo('url') ); ?>" title="logout"><?php _e('退出','tinection'); ?></a>
                         <?php ?>
                     <?php } ?>
                 </div>
@@ -53,7 +54,7 @@
             </div>
         </div>
         <div class="gonggao-wrap">
-            <?php query_posts("post_type=gonggao&post_status=publish&posts_per_page=-1");if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <?php query_posts("post_type=gonggao&post_status=publish&posts_per_page=1");if (have_posts()) : while (have_posts()) : the_post(); ?>
             <li>
                 <div class="gonggao-content">
                     <i class="horn-icon"></i>
@@ -68,3 +69,4 @@
             </li>
             <?php endwhile;endif; ?>
         </div>
+        <div class="g-content">

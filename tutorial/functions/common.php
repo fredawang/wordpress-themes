@@ -1,0 +1,3 @@
+<?php 
+    $perPageNum = 6;
+?>

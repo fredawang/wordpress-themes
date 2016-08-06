@@ -3,9 +3,9 @@
 Template Name: 自定义注册页面模板  
 */     
 ?> 
-<?php   
-require_once(ABSPATH . WPINC . '/registration.php'); //宝航registration.php文件   
-global $wpdb, $user_ID; //glocal全局变量   
+<?php 
+
+global $wpdb, $user_ID; //glocal全局变量 
 if (!$user_ID) { //如果存在$user_ID变量，则用户已经登录   
    //接下来的代码都添加在这里.     
 }else{   
@@ -15,14 +15,13 @@ if (!$user_ID) { //如果存在$user_ID变量，则用户已经登录
 
 
 if($_POST){   
-echo "aaa";
-    //验证数据是否全部为空格   
-    $username = $wpdb->escape($_REQUEST['username']);   
+    //验证数据是否全部为空格  
+    $username = $wpdb->escape($_REQUEST['user_login']);   
     if(empty($username)) {   
         echo "用户名不能为空.";   
         exit();   
     }   
-    $email = $wpdb->escape($_REQUEST['email']);   
+    $email = $wpdb->escape($_REQUEST['user_email']);   
     //验证邮箱格式   
     if( !is_email($email) ) {   
         echo "请输入有效的邮箱地址.";   
@@ -30,8 +29,8 @@ echo "aaa";
     }   
        
     //生成密码   
-    $passwd = $wpdb->escape($_REQUEST['passwd']); 
-    $re_passwd = $wpdb->escape($_REQUEST['re_passwd']); 
+    $passwd = $wpdb->escape($_REQUEST['pass1']); 
+    $re_passwd = $wpdb->escape($_REQUEST['pass2']); 
     if($re_passwd != $passwd ){
         echo "两次密码不一致.";   
         exit();
@@ -40,11 +39,38 @@ echo "aaa";
         echo "请输入有效的密码.";   
         exit(); 
     }
+	$user_nicename = $wpdb->escape($_REQUEST['nickname']); //昵称
+	$user_profession = $wpdb->escape($_REQUEST['gsposition']); //职业
+	$description = $wpdb->escape($_REQUEST['description']); //个人说明
+	$user_city = $wpdb->escape($_REQUEST['user_city']); //城市
+	$user_work = $wpdb->escape($_REQUEST['company']); //目前就职
+    $user_avatar = $wpdb->escape($_REQUEST['avatar']); //腾讯微博
+	$user_game_age = $wpdb->escape($_REQUEST['user_game_age']); //游戏行业年限
+	$user_qq = $wpdb->escape($_REQUEST['qq']); //QQ
+	$user_age = $wpdb->escape($_REQUEST['user_age']); //年龄
+	$user_university = $wpdb->escape($_REQUEST['user_university']); //院校
+	$user_url = $wpdb->escape($_REQUEST['user_url']); //个人网站
+	$user_xinlang = $wpdb->escape($_REQUEST['user_xinlang']); //新浪微博
+	$user_tengxun = $wpdb->escape($_REQUEST['qq_weibo']); //腾讯微博
+	
     //创建用户   
     $userdata = array(
         'user_login'  =>  $username,
+		'user_nicename' => $user_nicename,
+		'user_profession' => $user_profession,
         'user_pass'    =>  $passwd,
-        'user_email'   =>  $email  // When creating an user, `user_pass` is expected.
+        'user_email'   =>  $email,
+		'description' => $description,
+		'user_city' => $user_city,
+		'user_work' => $user_work,
+        'simple_local_avatar' => $user_avatar,
+		'user_game_age' => $user_game_age,
+		'user_qq' => $user_qq,
+		'user_age' => $user_age,
+		'user_university' => $user_university,
+		'user_url' => $user_url,
+		'user_xinlang' => $user_xinlang,
+		'user_tengxun' => $user_tengxun
     );
     //$user_id = wp_create_user( $username, $passwd, $email );  
     $user_id = wp_insert_user( $userdata ) ;
@@ -65,8 +91,8 @@ echo "aaa";
     exit();   
 }else{   
     get_header(); //加载头部问及爱你   
-    ?>   
-     <script src="http://code.jquery.com/jquery-1.4.4.js"></script> <!-- 如果你的主题没有引入了jquery，请自己引入 -->   
+    ?>      
+     <script src="<?php bloginfo('template_url'); ?>/js/lib/plupload.full.min.js"></script> <!-- 如果你的主题没有引入了jquery，请自己引入 -->   
     <link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/css/register.css" type="text/css" media="all" /> 
     <div id="container">   
     <div id="content">   
@@ -74,21 +100,7 @@ echo "aaa";
     
         //get_option('users_can_register')获取是否允许注册   
         if(get_option('users_can_register')) {   
-        ?>   
-        <!--<h1>注册</h1>   
-        <div id="result"></div> 
-        <form id="wp_signup_form" action="" method="post">   
-            <label>用户名</label>   
-            <input type="text" name="username" class="text" value="" /><br />   
-            <label>Email</label>   
-            <input type="text" name="email" class="text" value="" /> <br />   
-            <label>密码</label>   
-            <input type="text" name="passwd" class="text" value="" /> <br />  
-            <label>确认密码</label>   
-            <input type="text" name="re_passwd" class="text" value="" /> <br />  
-           
-            <input type="submit" id="submitbtn" name="submit" value="注册" />   
-        </form>   -->
+        ?>
         <div class="sinneir">
             <div class="entry full-width clearfix" style="margin-top:30px;">
                 <h1 class="h1huiyuanlb">注册页面</h1>	
@@ -156,7 +168,7 @@ echo "aaa";
         
                     <div class="wpuf-fields">
                         <input id="pass1" type="password" class="password" data-required="yes" data-type="text" required="required" name="pass1" placeholder="至少6个字符" value="" size="40">
-                        <span class="wpuf-help">可用大小写字母，数字和符号，例如：~！@#￥%</span>
+                        <span class="wpuf-help">可用大小写字母，数字和符号，例如：~！@#$%</span>
                     </div>
 
                 </li>
@@ -177,19 +189,69 @@ echo "aaa";
 
                     <div class="wpuf-fields">
                         <div id="pass-strength-result" style="display: block;" class="">Strength indicator</div>
-                        <!--<script src="http://www.gameui.cn/wp-admin/js/password-strength-meter.js"></script>
-                        <script src="http://www.gameui.cn/wp-admin/js/user-profile.js"></script>
+                        
                         <script type="text/javascript">
-                            var pwsL10n = {
-                                empty: "Strength indicator",
-                                short: "Very weak",
-                                bad: "Weak",
-                                good: "Medium",
-                                strong: "Strong",
-                                mismatch: "Mismatch"
-                            };
-                            try{convertEntities(pwsL10n);}catch(e){};
-                        </script>-->
+							function setStyle(style){
+								var word_map ={
+									"weak":"弱",
+									"medium":"中",
+									"strong":"强"
+								}
+								var style_map={
+									"weak":"short",
+									"medium":"good",
+									"strong":"strong"
+								}
+								$("#pass-strength-result").html(word_map[style]);
+								$("#pass-strength-result").removeClass("short good strong").addClass(style_map[style]);
+							}
+                            function checkPassword(Password){
+								var rules=[{
+									reg:/\d+/,
+									weight:2
+								},{
+									reg:/[a-z]+/,
+									weight:4
+								},{
+									reg:/[A-Z]+/,
+									weight:8
+								},{
+									reg:/[~!@#\$%]/,
+									weight:16
+								}];
+								
+								var weight=0;
+								for(var j=rules.length-1;j>=0;j--){
+									if(rules[j].reg.test(Password)){
+										weight|=rules[j].weight;
+									}
+								}
+								
+								if(weight<=10){
+									return "weak";
+								}
+								else if(weight<=20){
+									return "medium";
+								} else{
+									return "strong";
+								}
+							}
+                            $("#pass1").keyup(function(){
+								var password = $(this).val();
+								var style = checkPassword(password);
+								setStyle(style);
+							});
+							$("#pass2").keyup(function(){
+								if($("#pass1").val() !== $("#pass2").val()){
+									$("#pass-strength-result").html("密码不一致");
+									$("#pass-strength-result").removeClass("short good strong").addClass("short");
+								} else{
+									$("#pass-strength-result").html("密码一致");
+									$("#pass-strength-result").removeClass("short good strong").addClass("strong");
+								}
+							});
+							
+                        </script>
                     </div>
             
                 </li>
@@ -199,26 +261,50 @@ echo "aaa";
                     </div>
         
                     <div class="wpuf-fields">
+                        <div class="wpuf-img-container">
+                            <img class="wpuf-img-avatar" src=""/>
+                            <input type="hidden" class="wpuf-img-avatar-val" name="avatar" >
+                        </div>
                         <div id="wpuf-avatar-upload-container" style="position: relative;">
                             <div class="wpuf-attachment-upload-filelist">
                                 <a id="wpuf-avatar-pickfiles" class="button file-selector" href="#" style="z-index: 0;">选择图像</a>
                                 <span class="wpuf-file-validation" data-required="no" data-type="file"></span>
                                 <ul class="wpuf-attachment-list thumbnails"></ul>
                             </div>
-                            <div id="p1amfv5if815fm1hs918gjjs1gk20_html5_container" class="plupload html5" style="position: absolute; width: 80px; height: 40px; overflow: hidden; z-index: -1; opacity: 0; top: 0px; left: 0px; background: transparent;">
-                                <input id="p1amfv5if815fm1hs918gjjs1gk20_html5" style="font-size: 999px; position: absolute; width: 100%; height: 100%;" type="file" accept="image/jpeg,image/gif,image/png,image/bmp">
-                            </div>
-                       </div><!-- .container -->
-
+                            <!--<div id="p1amfv5if815fm1hs918gjjs1gk20_html5_container" class="plupload html5" style="position: absolute; width: 80px; height: 40px; overflow: hidden; z-index: -1; opacity: 0; top: 0px; left: 0px; background: transparent;">
+                                <input id="p1amfv5if815fm1hs918gjjs1gk20_html5" style="font-size: 999px; position: absolute; width: 100%; height: 100%;" name="user-upload-avatar" type="file" accept="image/jpeg,image/gif,image/png,image/bmp">
+                            </div>-->
+                       </div>
+                       
                        <span class="wpuf-help">头像尺寸为75X75像素的方正形，JPG格式为佳，不能超过50KB，文件名不能包含中文</span>
-
-                    </div> <!-- .wpuf-fields -->
-
-                    <!--<script type="text/javascript">
-                        jQuery(function($) {
+                    </div> 
+                    
+                    <script type="text/javascript">
+                        /*jQuery(function($) {
                             new WPUF_Uploader('wpuf-avatar-pickfiles', 'wpuf-avatar-upload-container', 1, 'avatar', 'jpg,jpeg,gif,png,bmp', 50);
+                        });*/
+                        var uploader = new plupload.Uploader({
+                            browse_button : 'wpuf-avatar-pickfiles' ,//触发文件选择对话框的按钮，为那个元素id
+                            url:'/xampp/htdocs/wordpress/wp-admin/admin-ajax.php?action=avatar',//'<?php bloginfo('template_url'); ?>/functions/upload-avatar.php',
+                            filters: {
+                              mime_types : [ //只允许上传图片和zip文件
+                                { title : "Image files", extensions : "jpg,gif,png" }
+                              ],
+                              max_file_size : '50kb', //最大只能上传50kb的文件
+                              prevent_duplicates : true //不允许选取重复文件
+                            }
+                        }); 
+                        uploader.init();
+                        uploader.bind('FilesAdded',function(uploader,files){
+                            uploader.start();
                         });
-                      </script>-->
+                        uploader.bind('FileUploaded',function(uploader,files, res){
+                            var resObj = JSON.parse(res.response);
+                            console.log(resObj.data.url);
+                            $(".wpuf-img-avatar").attr("src", resObj.data.url);
+                            $(".wpuf-img-avatar-val").val(resObj.data.url);
+                        });
+                      </script>
                 </li>
                 <li class="wpuf-el description">        
                     <div class="wpuf-label">
@@ -231,13 +317,13 @@ echo "aaa";
                     </div>
 
                 </li>
-                <li class="wpuf-el yim">        
+                <li class="wpuf-el user_city">        
                     <div class="wpuf-label">
-                        <label for="wpuf-yim">城市</label>
+                        <label for="wpuf-user_city">城市</label>
                     </div>
         
                     <div class="wpuf-fields">
-                        <input class="textfield" id="yim" type="text" data-required="no" data-type="text" name="yim" placeholder="所在城市" value="" size="40">
+                        <input class="textfield" id="user_city" type="text" data-required="no" data-type="text" name="user_city" placeholder="所在城市" value="" size="40">
                         <span class="wpuf-help"></span>
                         
                     </div>
@@ -255,13 +341,13 @@ echo "aaa";
                     </div>
 
                 </li>
-                <li class="wpuf-el sina_weibo">        
+                <li class="wpuf-el user_game_age">        
                     <div class="wpuf-label">
-                        <label for="wpuf-sina_weibo">游戏行业年限</label>
+                        <label for="wpuf-user_game_age">游戏行业年限</label>
                     </div>
         
                     <div class="wpuf-fields">
-                        <select name="sina_weibo[]" data-required="no" data-type="select">
+                        <select name="user_game_age" data-required="no" data-type="select">
                             <option value=""> - 年限 -</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -289,24 +375,24 @@ echo "aaa";
                     </div>
 
                 </li>
-                <li class="wpuf-el google_plus">        
+                <li class="wpuf-el user_age">        
                     <div class="wpuf-label">
-                        <label for="wpuf-google_plus">年龄</label>
+                        <label for="wpuf-user_age">年龄</label>
                     </div>
     
                     <div class="wpuf-fields">
-                        <input class="textfield" id="google_plus" type="text" data-required="no" data-type="text" name="google_plus" placeholder="How old are you？" value="" size="40">
+                        <input class="textfield" id="user_age" type="text" data-required="no" data-type="text" name="user_age" placeholder="How old are you？" value="" size="40">
                         <span class="wpuf-help"></span>
                     </div>
 
                 </li>
-                <li class="wpuf-el gui_chengshi">        
+                <li class="wpuf-el user_university">        
                     <div class="wpuf-label">
-                        <label for="wpuf-gui_chengshi">院校</label>
+                        <label for="wpuf-user_university">院校</label>
                     </div>
         
                     <div class="wpuf-fields">
-                        <input class="textfield" id="gui_chengshi" type="text" data-required="no" data-type="text" name="gui_chengshi" placeholder="目前就读/毕业于" value="" size="40">
+                        <input class="textfield" id="user_university" type="text" data-required="no" data-type="text" name="user_university" placeholder="目前就读/毕业于" value="" size="40">
                         <span class="wpuf-help"></span>
                     </div>
 
@@ -322,13 +408,13 @@ echo "aaa";
                     </div>
 
                 </li>
-                <li class="wpuf-el aim">        
+                <li class="wpuf-el user_xinlang">        
                     <div class="wpuf-label">
-                        <label for="wpuf-aim">新浪微博</label>
+                        <label for="wpuf-user_xinlang">新浪微博</label>
                     </div>
         
                     <div class="wpuf-fields">
-                        <input class="textfield" id="aim" type="text" data-required="no" data-type="text" name="aim" placeholder="例如：http://weibo.com/gameui" value="" size="40">
+                        <input class="textfield" id="user_xinlang" type="text" data-required="no" data-type="text" name="user_xinlang" placeholder="例如：http://weibo.com/gameui" value="" size="40">
                         <span class="wpuf-help"></span>
                     </div>
 
@@ -349,9 +435,9 @@ echo "aaa";
                         &nbsp;
                     </div>
 
-                    <input type="hidden" id="_wpnonce" name="_wpnonce" value="59237f21a5"><input type="hidden" name="_wp_http_referer" value="/registration">            <input type="hidden" name="form_id" value="9024">
+                    <!--<input type="hidden" id="_wpnonce" name="_wpnonce" value="59237f21a5"><input type="hidden" name="_wp_http_referer" value="/registration">            <input type="hidden" name="form_id" value="9024">
                     <input type="hidden" name="page_id" value="9026">
-                    <input type="hidden" name="action" value="wpuf_submit_register">
+                    <input type="hidden" name="action" value="wpuf_submit_register">-->
                     <input type="submit" name="submit" value="注册">
                 </li>
                 </ul></form>
@@ -363,6 +449,8 @@ echo "aaa";
             $("#submitbtn").click(function() {   
                 $('#result').html('<img src="<?php bloginfo('template_url'); ?>/images/loader.gif" class="loader" />').fadeIn();   
                 var input_data = $('#wp_signup_form').serialize();   
+                console.log(input_data);
+                input_data["avatar"] = $(".wpuf-img-avatar").attr("src");
                 $.ajax({   
                     type: "POST",   
                     url:  "<?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>",   
@@ -372,8 +460,8 @@ echo "aaa";
                         $('<div>').html(msg).appendTo('div#result').hide().fadeIn('slow');   
                     }   
                 });   
-                return false;   
-            });   
+                return false;
+            });  
         </script>   
         <?php   
         }else{   

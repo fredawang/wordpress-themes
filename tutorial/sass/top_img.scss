@@ -1,0 +1,46 @@
+.top-img-wrap{
+    position:relative;
+    width:100%;
+    height: 250px;
+    
+    .swipe-wrap{
+		overflow: hidden;
+		position: relative;
+	}
+	.top-slide-wrap{
+		position:relative;
+		width: 722px;
+		overflow: hidden;
+	}
+	.top-slide-link{
+		position: relative;
+		display: block;
+		float: left;
+		width:100%;
+		height: 100%;
+	}
+	.top-slide-nav{
+		position: absolute;
+		right:20px;
+		bottom:10px;
+		.f-img-nav{
+			margin:0 5px;
+		}
+	}
+	.circle-icon{
+		cursor: pointer;
+		width:7px;
+		height:7px;
+		background: url(img/circle.png);
+		transition:all 0.5s;
+	}
+	.circle-icon.active{
+		width:34px;
+		height:7px;
+		background: url(img/circle-active.png);
+	}
+	.top-img{
+		display: block;
+		margin-left:11px;
+	}
+}

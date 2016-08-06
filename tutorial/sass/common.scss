@@ -1,0 +1,27 @@
+$version:"?v=1";
+$share_bg_color:#2d2c2b;
+$share_guanwang_color:#b99e63;
+$share_fenxiangdao_color:#8b816f;
+$min_width:1246px;
+$max_width:1920px;
+$img_base_path:"../img/";
+$bg_color:#f1f1f1;
+$header_bg:#3f4657;
+$nav_height:56px;
+$nav_color:#dbe0e3;
+$nav_hover_bg_color:#4895e9;
+$sub_nav_bg_color:#4895e9;
+$sub_nav_hover_bg_color:#2f80d9;
+$sub_menu_width:128px;
+$gonggao_height:34px;
+$gonggao_bg_color:#fff;
+$search_input_width:140px;
+$search_input_height:23px;
+@mixin fake-after{
+	display: block;
+	clear: both;
+	visibility: hidden;
+	height: 0;
+	overflow: hidden;
+	content: "";
+}

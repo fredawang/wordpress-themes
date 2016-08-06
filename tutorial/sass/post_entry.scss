@@ -1,0 +1,137 @@
+/*page pagination*/
+.post-navigation{
+	position: relative;
+	margin:15px 0;
+}
+.pagination{
+	position: relative;
+	.screen-reader-text{
+		display: none;
+	}
+	.page-numbers{
+		display: inline-block;
+		width:40px;
+		height: 36px;
+		line-height: 36px;
+		text-align: center;
+		background-color: #fff;
+		color:#666;
+		border-bottom: #4895e9 2px solid;
+		&.current, &:hover{
+			background-color: #4895e9;
+			color:#fff;
+		}
+	}
+}
+.post-entry-list{
+	position: relative;
+	.post-wrap{
+		overflow: hidden;
+		&:after{
+			display: block;
+			clear: both;
+			visibility: hidden;
+			height: 0;
+			overflow: hidden;
+			content: "";
+		}
+	}
+	
+	.post{
+		position: relative;
+		display: block;
+		float: left;
+	    margin: 0 17px 36px 0;
+	    width: 235px;
+	    overflow: hidden;
+	    color: #666;
+	    border-bottom: 2px solid #dfe0e3;
+	    box-shadow: 0 0 8px #dfe0e3;
+	    &:nth-child(5n){
+	    	margin:0;
+	    	float: right;
+	    }
+	    &-url{
+	    	display: block;
+	    	width:235px;
+	    	height: 180px;
+	    	line-height: 180px;
+	    	overflow: hidden;
+	    	text-align: center;
+	    	vertical-align: middle;
+	    	img{
+	    		display: inline-block;
+	    	}
+	    }
+	    &-detail{
+	    	background-color: #fff;
+	    	padding-top:6px;
+	    	&-msg{
+	    		padding:0 6px;
+	    		height: 24px;
+	    		line-height: 24px;
+	    		color:#bfbfbf;
+	    		font-size:12px;
+	    	}
+	    	&-title{
+	    		padding:0 6px;
+	    		a{
+	    			display: block;
+	    			font-size:16px;
+	    			height: 24px;
+				    line-height: 24px;
+				    overflow: hidden;
+	    			color:#666;
+
+	    		}
+	    	}
+	    	&-last-row{
+	    		position: relative;
+	    		overflow: hidden;
+	    		padding:8px 6px;
+	    		margin-top:3px;
+	    		border-top:1px solid #f2f2f2;
+				&:after{
+					display: block;
+					clear: both;
+					visibility: hidden;
+					height: 0;
+					overflow: hidden;
+					content: "";
+				}
+	    	}
+	    	&-author{
+		    	position: relative;
+		    	display: block;
+		    	float: left;
+		    	font-size:12px;
+		    	color:#bfbfbf;
+		    	height: 20px;
+		    	line-height: 20px;
+		    	&-thumil{
+		    		display: block;
+		    		float: left;
+		    		width: 20px;
+		    		height: 20px;
+		    	}
+		    	&-name{
+		    		display: block;
+		    		float: left;
+				    width: 106px;
+				    height: 18px;
+				    overflow: hidden;
+		    	}
+		    }
+		    &-category{
+		    	position: relative;
+		    	float: right;
+		    	font-size:12px;
+		    	height: 20px;
+		    	line-height: 20px;
+		    	a{
+		    		color:#bfbfbf;
+		    	}
+		    }
+	    }
+	}
+}
